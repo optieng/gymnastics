@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -299,4 +298,3 @@ with st.expander("About this model"):
           performance norms for a particular gymnast.
         """
     )
-```
