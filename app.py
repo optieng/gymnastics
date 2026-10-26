@@ -280,6 +280,30 @@ for col, v in zip(columns, V):
         value=f"{height:.2f} m"
     )
 
+# --------------------------------------------------
+# DISTANCE AT THE SELECTED ANGLE
+# --------------------------------------------------
+
+st.subheader("Distance at the selected angle")
+
+# Convert the selected arm angle to radians.
+alpha_rad = np.radians(alpha_deg)
+
+# From the existing range relationship:
+# sin(2 * alpha) = S * g / V**2
+# Therefore:
+# S = V**2 * sin(2 * alpha) / g
+
+columns = st.columns(len(V))
+
+for col, v in zip(columns, V):
+    distance = (v**2 * np.sin(2 * alpha_rad)) / g
+
+    col.metric(
+        label=f"Release speed: {v} m/s",
+        value=f"{distance:.2f} m"
+    )
+
 
 # --------------------------------------------------
 # MODEL ASSUMPTIONS
@@ -288,13 +312,11 @@ for col, v in zip(columns, V):
 with st.expander("About this model"):
     st.markdown(
         """
-        - The calculations assume ideal projectile motion.
-        - Air resistance and hoop rotation are ignored.
+        - ideal projectile motion.
+        - no air resistance, wind
         - Peak height is measured above the hoop's release point,
           not above the floor.
-        - The distance-angle relationship is based on the ideal
-          projectile range equation.
-        - The curves are theoretical estimates, not validated
-          performance norms for a particular gymnast.
+        - hoop rotation is ignored
+        - the velocity range 0-9 m/s is acheivable
         """
     )
